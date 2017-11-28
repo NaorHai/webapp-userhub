@@ -14,7 +14,7 @@
 </head>
 <body ng-app="userHub" ng-controller="userHubCtrl">
 	<h1 class="title">User Hub</h1>
-<a href="#{{modal1}}" role="button" class="btn btn-primary create" data-toggle="modal">Create</a>
+<a href="#{{modal1}}" class="btn btn-primary create" data-toggle="modal">Create</a>
 	<div id="omnibar">{{users.length}} Agents</div>
 	  <table class="table">
     <thead>
@@ -28,7 +28,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="user in users">
-		<td>{{ user.name }}</td>
+          <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.address }}</td>
         <td>{{ modifyDate(user.join_date) }}</td>
@@ -36,7 +36,7 @@
       </tr>
     </tbody>
   </table>
-   <modal lolo="modal1" modal-body="body" modal-footer="footer" modal-header="header" data-ng-click-right-button="submit()"></modal>
+   <modal lolo="modal1" modal-body="body" modal-footer="footer" modal-header="header"></modal>
       
 </body>
 </html>

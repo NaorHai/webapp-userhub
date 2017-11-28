@@ -2,7 +2,9 @@ var app = angular.module('userHub', []);
 
 	app.controller('userHubCtrl', function($scope, $http) {
 
-		 $scope.getAllUsers = function() {
+        $scope.header = 'Create/Update a new user';
+
+        $scope.getAllUsers = function() {
 		 	  $http.get('http://localhost:8080/userhub/getAllUsers')
 		  	.then(function(res) {
 		  		$scope.users =  res.data;
@@ -12,7 +14,7 @@ var app = angular.module('userHub', []);
 		  	})
 		 };
 
-		  //initial loading
+		 //initial loading
         $scope.getAllUsers();
 
 	 	 $scope.saveUser = function(user) {
@@ -21,7 +23,7 @@ var app = angular.module('userHub', []);
 	  		return res.data;
 	  		})
 	  		.catch(function(err) {
-	  			console.log(err);	
+	  			console.log(err);
 	  		})
 	  	};
 
@@ -55,37 +57,48 @@ var app = angular.module('userHub', []);
 			$scope.users.splice(index, 1);	
   		};
 
-		$scope.header = 'Create/Update a new user';
-	    $scope.submit = function (user) {
-	        if (user) {
-                if(saveUser(user)) {
-                    console.log("user was saved!");
-                }
+        $scope.submit = function (user) {
+            console.log('processing...');
+            console.log(user);
+            if($scope.saveUser(JSON.stringify(user))) {
+				console.log('user was saved!');
+			}
+			else {
+                console.log('user was not saved!');
             }
-            console.log("user was not saved!");
-	    };
+        };
 	});
 
 
 	app.directive('modal', function () {
-	    return {
-	        restrict: 'EA',
-	        scope: {
-	            title: '=modalTitle',
-	            header: '=modalHeader',
-	            body: '=modalBody',
-	            footer: '=modalFooter',
-	            callbackbuttonleft: '&ngClickLeftButton',
-	            callbackbuttonright: '&ngClickRightButton',
-	            handler: '=lolo'
-	        },
-	        templateUrl: 'templates/modal.tpl.html',
-	        transclude: true,
-	        controller: function ($scope) {
-	            $scope.handler = 'pop';
-	            $scope.getLocalDate = function () {
-                    return new Date().toLocaleDateString();
-                }
-	        },
-	    };
+        return {
+            restrict: 'E',
+            scope: {
+                title: '=modalTitle',
+                header: '=modalHeader',
+                body: '=modalBody',
+                footer: '=modalFooter',
+                selectedUser: '=selectedUser',
+                // callbackbuttonleft: '&ngClickLeftButton',
+                submit: '&',
+                updateFn: '&',
+                callbackbuttonright: '&ngClickRightButton',
+                handler: '=lolo'
+            },
+            templateUrl: 'modal.tpl.html',
+            replace: true,
+            transclude: true,
+            controller: function ($scope) {
+                $scope.handler = 'pop';
+                $scope.name = '1';
+                $scope.email = '12';
+                $scope.address = '222';
+                $scope.join_date = (new Date()).toLocaleDateString();
+            },
+			link: function(scope, elm, attrs) {
+                	scope.callUpdate = function () {
+                        scope.$parent.submit({id: 444, name: scope.name, email: scope.email, address: scope.address, join_date: new Date(scope.join_date).getTime()});
+                    }
+            }
+        };
 	});
