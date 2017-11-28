@@ -1,6 +1,6 @@
 var app = angular.module('userHub', []);
 
-	app.controller('userHubCtrl', function($scope, $http, $templateCache) {
+	app.controller('userHubCtrl', function($scope, $http) {
 
 		 $scope.getAllUsers = function() {
 		 	  $http.get('http://localhost:8080/userhub/getAllUsers')
