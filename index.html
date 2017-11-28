@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/main.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script src="app.js"></script>
+
+
+<title>UserHub</title>
+</head>
+<body ng-app="userHub" ng-controller="userHubCtrl">
+	<h1 class="title">User Hub</h1>
+<a href="#{{modal1}}" role="button" class="btn btn-primary create" data-toggle="modal">Create</a>
+	<div id="omnibar">{{users.length}} Agents</div>
+	  <table class="table">
+    <thead>
+      <tr>
+        <th>Agent Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Join Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users">
+		<td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ modifyDate(user.join_date) }}</td>
+        <td><span class="glyphicon glyphicon-trash delete" data-ng-click="deleteUserById(users[$index].id, $index)"></span></td>
+      </tr>
+    </tbody>
+  </table>
+   <modal lolo="modal1" modal-body="body" modal-footer="footer" modal-header="header" data-ng-click-right-button="submit()"></modal>
+      
+</body>
+</html>

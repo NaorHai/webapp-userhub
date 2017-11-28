@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300');
+* {
+	padding: 0;
+	margin:0;
+}
+body {
+	font-family: 'Montserrat', sans-serif;
+	background: #E1EAF3;
+	padding-left: 32px;
+	padding-right: 32px;
+}
+
+.title {
+	font-size: 36px;
+	margin-top: 32px;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+.create {
+	float: right;
+}
+td, tr {
+	background: #ffffff;
+	font-size: 16px;
+}
+th {
+	font-size: 13px;
+	color: #4d4d33
+}
+#omnibar {
+	margin-top: 70px;
+	padding-top: 15px;
+	padding-left: 15px;
+	font-weight: bold;
+	width: 100%;
+	height: 50px;
+	background: #E9F1F4;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.delete {
+	display: block;
+	cursor: pointer;
+	padding-left: 15px;
+	font-size: 13px;
+	color: #4d4d33;
+}
+.delete:hover {
+	color: #4286f4;
+	font-size: 16px;
+}
+.modal-body {
+	background: #E1EAF3;
+	height: 500px;
+}
+.box {
+	margin-right: 30px;
+	width: 280px;
+	display: inline-block;
+}
+.date {
+	width: 905px;
+}
+.modal-dialog {
+	width: 1200px;
+}
