@@ -5,7 +5,7 @@ var app = angular.module('userHub', []);
         $scope.header = 'Create/Update a new user';
 
         $scope.getAllUsers = function() {
-		 	  $http.get('http://localhost:8080/userhub/getAllUsers')
+		 	  $http.get('http://localhost:8898/userhub/getAllUsers')
 		  	.then(function(res) {
 		  		$scope.users =  res.data;
 		  	})
@@ -18,7 +18,7 @@ var app = angular.module('userHub', []);
         $scope.getAllUsers();
 
 	 	 $scope.saveUser = function(user) {
-	  		$http.post('http://localhost:8080/userhub/udpateUser', user)
+	  		$http.post('http://localhost:8898/userhub/updateUser', user)
 	  		.then(function(res) {
 	  		return res.data;
 	  		})
@@ -28,7 +28,7 @@ var app = angular.module('userHub', []);
 	  	};
 
 	  	  $scope.deleteUserById = function(user_id, index) {
-	  		$http.post('http://localhost:8080/userhub/deleteUserById', parseInt(user_id))
+	  		$http.post('http://localhost:8898/userhub/deleteUserById', parseInt(user_id))
 	  		.then(function(res) {
 	  			if (res.data === true) {
   					$scope.removeRow(index)		
@@ -40,7 +40,7 @@ var app = angular.module('userHub', []);
 	  	};
 
   		  $scope.getUserById = function(user_id) {
-	  		$http.post('http://localhost:8080/userhub/getUserById', user_id)
+	  		$http.post('http://localhost:8898/userhub/getUserById', user_id)
 	  		.then(function(res) {
 	  		return res.data;
 	  		})
@@ -59,7 +59,7 @@ var app = angular.module('userHub', []);
 
         $scope.submit = function (user) {
             console.log('processing...');
-            console.log(user);
+            console.log(JSON.stringify(user));
             if($scope.saveUser(JSON.stringify(user))) {
 				console.log('user was saved!');
 			}
@@ -90,14 +90,14 @@ var app = angular.module('userHub', []);
             transclude: true,
             controller: function ($scope) {
                 $scope.handler = 'pop';
-                $scope.name = '1';
-                $scope.email = '12';
-                $scope.address = '222';
+                $scope.name = '';
+                $scope.email = '';
+                $scope.address = '';
                 $scope.join_date = (new Date()).toLocaleDateString();
             },
 			link: function(scope, elm, attrs) {
                 	scope.callUpdate = function () {
-                        scope.$parent.submit({id: 444, name: scope.name, email: scope.email, address: scope.address, join_date: new Date(scope.join_date).getTime()});
+                        scope.$parent.submit({id: Math.floor(Math.random() * 1000000) + 1, name: scope.name, email: scope.email, address: scope.address, join_date: new Date().getTime()});
                     }
             }
         };
