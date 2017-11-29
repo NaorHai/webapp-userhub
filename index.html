@@ -32,7 +32,10 @@
         <td>{{ user.email }}</td>
         <td>{{ user.address }}</td>
         <td>{{ modifyDate(user.join_date) }}</td>
-        <td><span class="glyphicon glyphicon-trash delete" data-ng-click="deleteUserById(users[$index].id, $index)"></span></td>
+        <td><span class="glyphicon glyphicon-trash icon" data-ng-click="deleteUserById(users[$index].id, $index)"></span>
+        <a href="#{{modal1}}" data-toggle="modal"><span class="glyphicon glyphicon-eye-open icon" ng-click="saveData($index)"></span></a></td>
+
+
       </tr>
     </tbody>
   </table>

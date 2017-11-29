@@ -38,16 +38,17 @@ th {
 	border-top-right-radius: 10px;
 }
 
-.delete {
+.icon {
 	display: block;
+	float: left;
 	cursor: pointer;
-	padding-left: 15px;
+	padding-left: 2px;
+	padding-right: 10px;
 	font-size: 13px;
 	color: #4d4d33;
 }
-.delete:hover {
+.icon:hover {
 	color: #4286f4;
-	font-size: 16px;
 }
 .modal-body {
 	background: #E1EAF3;

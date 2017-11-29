@@ -1,6 +1,6 @@
 var app = angular.module('userHub', []);
 
-	app.controller('userHubCtrl', function($scope, $http) {
+	app.controller('userHubCtrl', function($scope, $http, userService) {
 
         $scope.header = 'Create/Update a new user';
 
@@ -8,7 +8,8 @@ var app = angular.module('userHub', []);
 		 	  $http.get('http://localhost:8898/userhub/getAllUsers')
 		  	.then(function(res) {
 		  		$scope.users =  res.data;
-		  	})
+                $scope.selectedUser =  $scope.users[0];
+            })
 		  	.catch(function(err) {
 		  		console.log(err);	
 		  	})
@@ -67,10 +68,13 @@ var app = angular.module('userHub', []);
                 console.log('user was not saved!');
             }
         };
+        $scope.saveData = function (index) {
+            userService.data = $scope.users[index]
+        }
 	});
 
 
-	app.directive('modal', function () {
+	app.directive('modal', ['userService', function (userService) {
         return {
             restrict: 'E',
             scope: {
@@ -78,7 +82,6 @@ var app = angular.module('userHub', []);
                 header: '=modalHeader',
                 body: '=modalBody',
                 footer: '=modalFooter',
-                selectedUser: '=selectedUser',
                 // callbackbuttonleft: '&ngClickLeftButton',
                 submit: '&',
                 updateFn: '&',
@@ -89,16 +92,28 @@ var app = angular.module('userHub', []);
             replace: true,
             transclude: true,
             controller: function ($scope) {
-                $scope.handler = 'pop';
-                $scope.name = '';
-                $scope.email = '';
-                $scope.address = '';
-                $scope.join_date = (new Date()).toLocaleDateString();
+                    console.log('hi');
+                    $scope.handler = 'pop';
+                    $scope.name = userService.data.name ||'';
+                    $scope.email = userService.data.email || '';
+                    $scope.address = userService.data.address || '';
+                    $scope.join_date = userService.data.join_date || (new Date()).toLocaleDateString();
             },
 			link: function(scope, elm, attrs) {
                 	scope.callUpdate = function () {
-                        scope.$parent.submit({id: Math.floor(Math.random() * 1000000) + 1, name: scope.name, email: scope.email, address: scope.address, join_date: new Date().getTime()});
+                        scope.$parent.submit({id: userService.data.id || (Math.floor(Math.random() * 1000000) + 1), name: scope.name, email: scope.email, address: scope.address, join_date: userService.data.join_date || (new Date().getTime())});
                     }
             }
         };
-	});
+	}]);
+
+    app.factory('userService', function() {
+        var data = {
+
+            selectedUser: 0
+
+        };
+        return {
+            data: data
+        }
+    });
